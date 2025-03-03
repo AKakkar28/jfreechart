@@ -192,8 +192,34 @@
                     <threads>4</threads>
                     <timeoutConstant>8000</timeoutConstant>
                     <withHistory>true</withHistory>
-                    <reportsDirectory>target/pit-reports</reportsDirectory>
                 </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>com.github.spotbugs</groupId>
+                <artifactId>spotbugs-maven-plugin</artifactId>
+                <version>4.9.1.0</version>
+                <executions>
+                    <execution>
+                        <id>spotbugs-check</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <failOnError>false</failOnError>
+                    <htmlOutput>true</htmlOutput>
+                    <outputDirectory>target/spotbugs-reports</outputDirectory>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.github.spotbugs</groupId>
+                        <artifactId>spotbugs</artifactId>
+                        <version>4.9.1</version>
+                    </dependency>
+                </dependencies>
             </plugin>
 
             <plugin>
