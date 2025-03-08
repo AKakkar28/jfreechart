@@ -71,17 +71,6 @@
             <version>5.8.2</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.jfree</groupId>
-            <artifactId>jfreechart</artifactId>
-            <version>1.5.3</version>
-        </dependency>
-        <dependency>
-            <groupId>org.pitest</groupId>
-            <artifactId>pitest-junit5-plugin</artifactId>
-            <version>1.2.1</version>
-        </dependency>
-
     </dependencies>
 
     <distributionManagement>
@@ -172,6 +161,13 @@
                 <groupId>org.pitest</groupId>
                 <artifactId>pitest-maven</artifactId>
                 <version>1.18.2</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.pitest</groupId>
+                        <artifactId>pitest-junit5-plugin</artifactId>
+                        <version>1.2.1</version>
+                    </dependency>
+                </dependencies>
                 <executions>
                     <execution>
                         <id>pitest-mutation</id>
@@ -182,16 +178,18 @@
                     </execution>
                 </executions>
                 <configuration>
+                    <!-- Target the production classes (all classes in org.jfree) -->
                     <targetClasses>
-                        <param>org.jfree.chart.renderer.*</param>
-                    <!-- testing 1 package right now : renderer  -->
-                     </targetClasses>
-<!--                    <targetTests>-->
-<!--                        <param>org.jfree.chart.renderer.*Test</param>-->
-<!--                    </targetTests>-->
+                        <param>org.jfree.chart.renderer.category.*</param>
+                    </targetClasses>
+                    <!-- Target only test classes, e.g. those ending with Test -->
+                    <targetTests>
+                        <param>org.jfree.chart.renderer.category.*Test</param>
+                    </targetTests>
                     <threads>4</threads>
                     <timeoutConstant>8000</timeoutConstant>
                     <withHistory>true</withHistory>
+                    <!-- Explicitly instruct PIT to use JUnit 5 -->
                 </configuration>
             </plugin>
 
